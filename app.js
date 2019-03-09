@@ -3,10 +3,10 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-var sqlite3 = require('sqlite3').verbose();
-var Pusher = require('pusher');
+const sqlite3 = require('sqlite3').verbose();
+const Pusher = require('pusher');
 
-var db = new sqlite3.Database('./app.db', sqlite3.OPEN_READWRITE);
+const db = new sqlite3.Database('./app.db', sqlite3.OPEN_READWRITE);
 
 db.run("CREATE TABLE IF NOT EXISTS subscriptions (email VARCHAR(90), name VARCHAR(90))")
 
