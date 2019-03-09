@@ -6,18 +6,6 @@ const bodyParser = require('body-parser')
 var sqlite3 = require('sqlite3').verbose();
 var Pusher = require('pusher');
 
-var pusher = new Pusher({
-    appId: '731602',
-    key: '077dd91d55f815492133',
-    secret: '53cfa79a002172010921',
-    cluster: 'mt1',
-    encrypted: true
-  });
-  
-pusher.trigger('my-channel', 'my-event', {
-    "message": "hello world"
-});
-
 var db = new sqlite3.Database('./app.db', sqlite3.OPEN_READWRITE);
 
 db.run("CREATE TABLE IF NOT EXISTS subscriptions (email VARCHAR(90), name VARCHAR(90))")
@@ -29,21 +17,19 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const pusher = new Pusher({
-//     appId: process.env.PUSHER_APP_ID,
-//     key: process.env.PUSHER_APP_KEY,
-//     secret: process.env.PUSHER_APP_SECRET,
-//     cluster: process.env.PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+const pusher = new Pusher({
+    appId: process.env.PUSHER_APP_ID,
+    key: process.env.PUSHER_APP_KEY,
+    secret: process.env.PUSHER_APP_SECRET,
+    cluster: process.env.PUSHER_APP_CLUSTER,
+    encrypted: true
+});
 
-console.log(process.env.PUSHER_APP_CLUSTER)
-
-app.get('/', (req, res) => res.status(200).send({msg: "Count down server"}))
+app.get('/', (req, res) => res.status(200).send({msg: "Count down server!"}))
 
 app.get('/userCount', (req, res) => {
     db.each(`SELECT count(*) AS userCount FROM subscriptions`, (err, row) => {
-        res.status(201).send({userCount: row.userCount}) 
+        res.status(201).send({userCount: row.userCount, targetCount: 5}) 
     });
 })
 
