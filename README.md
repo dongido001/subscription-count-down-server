@@ -33,7 +33,7 @@ Next, create your environment keys:
 cp .env.example .env
 ```
 
-Then get your Pusher API keys from your Pusher [Dashboard](https://dashboard.pusher.com/). Once you have the keys, up the `.env` file with the correct API keys.
+Then get your Pusher API keys from your Pusher [Dashboard](https://dashboard.pusher.com/). Once you have the keys, update the `.env` file with the correct API keys.
 
 Next, install the dependencies:
 
